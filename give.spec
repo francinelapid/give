@@ -64,7 +64,6 @@ exposing the files to third parties.
 %local_options
 
 %install
-# delete this step later
 rm -rf "$RPM_BUILD_ROOT"
 mkdir -p $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}

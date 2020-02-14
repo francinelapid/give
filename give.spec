@@ -1,8 +1,9 @@
-#don't strip binaries
+# The default behavior of rpmbuild is to strip binaries after installation
+# in order to reduce file size. The two macros defined below override that
+# behavior and compresses the man and info pages for debugging purposes.
 %define __os_install_post /usr/lib/rpm/brp-compress
 %define debug_package %{nil}
 
-#Name: give-%{version}-%{release}
 Name: give
 Version: 3.1
 Release: 5%{?dist}

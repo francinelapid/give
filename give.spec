@@ -17,7 +17,7 @@ Summary: lc file transfer utility
 License: LLNL Internal
 Group: System Environment/Base
 Source0: https://github.com/hpc/%{name}/archive/v%{version}-%{release}.tar.gz
-URL: https://github.com/hpc/give
+URL: https://github.com/hpc/%{name}
 
 
 ######################################################################

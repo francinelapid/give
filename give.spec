@@ -1,8 +1,14 @@
-# The default behavior of rpmbuild is to strip binaries after installation
-# in order to reduce file size. The two macros defined below override that
-# behavior and compresses the man and info pages for debugging purposes.
+# add --with checks option (default is enable non strict checks)
+%bcond_with checks
+
+# The default behavior of rpmbuild, depending on your OS, often is to strip binaries
+# after installation in order to reduce file size. The two macros defined below
+# override that behavior and compresses the man and info pages for debugging purposes.
+# For more information: https://www.redhat.com/archives/rpm-list/2001-November/msg00257.html
 %define __os_install_post /usr/lib/rpm/brp-compress
 %define debug_package %{nil}
+
+%define default_give_dir /usr/give
 
 Name: give
 Version: 3.1
@@ -10,53 +16,24 @@ Release: 5%{?dist}
 Summary: lc file transfer utility
 License: LLNL Internal
 Group: System Environment/Base
-Source0: https://github.com/hpc/give/archive/v3.1-5.tar.gz
-BuildRoot: ~/rpmbuild/BUILDROOT
-URL: https://www.git.lanl.gov/filesystems/give
+Source0: https://github.com/hpc/%{name}/archive/v%{version}-%{release}.tar.gz
+URL: https://github.com/hpc/give
 
 
 ######################################################################
 %prep
 %setup -n %{name}-%{version}-%{release}
 
-#Wonderful process to check for config options...wish there was an %elif for this! 
-#Checks to see if both defined, if both aren't defined it checks one, then the other, 
-#finally if none... just run config with defaults and make.
-#For Release 3:
-#Also define a text string to include in the RPM description, stating which (if any) of these options was used.
 %build
-%if %{?strict_checks:1}%{!?strict_checks:0} && %{?alt_givedir:1}%{!?alt_givedir:0}
-	%if "%{strict_checks}" == "no" || "%{strict_checks}" == "No" || "%{strict_checks}" == "NO"
-		%configure --enable-non-strict-checks --enable-givedir=%{alt_givedir}
-		%define local_options Built with non-strict-checks and alt givedir=%{alt_givedir}
-		make
-	%else
-		echo "*****BAD PARAM TO STRICT-CHECKS, ACCEPTABLE VALS: no, No, or NO. IF YOU WANT STRICT CHECKING DO NOT DEFINE STRICT CHECKS. IT IS ENABLED BY DEFAULT*****."
-		exit -1
-	%endif
+%if %{with checks}
+    %configure --enable-givedir=%{default_give_dir}
+    %define local_options Built with strict checks
+    make
 %else
-	%if %{?strict_checks:1}%{!?strict_checks:0}
-		%if "%{strict_checks}" == "no" || "%{strict_checks}" == "No" || "%{strict_checks}" == "NO"
-			%configure --enable-non-strict-checks
-			%define local_options Built with non-strict-checks only
-			make
-		%else
-			echo "*****BAD PARAM TO STRICT-CHECKS, ACCEPTABLE VALS: no, No, or NO. IF YOU WANT STRICT CHECKING DO NOT DEFINE STRICT CHECKS. IT IS ENABLED BY DEFAULT*****."
-			exit -1
-		%endif
-	%else
-		%if %{?alt_givedir:1}%{!?alt_givedir:0}
-			%configure --enable-givedir=%{alt_givedir}
-			%define local_options Built with alt givedir=%{alt_givedir} only
-			make
-		%else
-			%define local_options Built with default values, strict checking and /usr/givedir
-			%configure
-			make
-		%endif
-	%endif
+    %configure --enable-non-strict-checks --enable-givedir=%{default_give_dir}
+    %define local_options Built with non-strict checks (default)
+    make
 %endif
-
 
 %description
 Give and take are a set of companion utilities that allow a 

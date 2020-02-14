@@ -1,24 +1,22 @@
-%define realname give
-%define realversion 3.1-5
-
 #don't strip binaries
 %define __os_install_post /usr/lib/rpm/brp-compress
 %define debug_package %{nil}
 
-Name: %{realname}-%{realversion}
-Version: ptools
-Release: 1
+#Name: give-%{version}-%{release}
+Name: give
+Version: 3.1
+Release: 5%{?dist}
 Summary: lc file transfer utility
 License: LLNL Internal
 Group: System Environment/Base
-Source0: %{realname}-%{realversion}.tgz
-BuildRoot: %{_tmppath}/%{name}-buildroot
+Source0: https://github.com/hpc/give/archive/v3.1-5.tar.gz
+BuildRoot: ~/rpmbuild/BUILDROOT
 URL: https://www.git.lanl.gov/filesystems/give
 
 
 ######################################################################
 %prep
-%setup -n %{name}
+%setup -n %{name}-%{version}-%{release}
 
 #Wonderful process to check for config options...wish there was an %elif for this! 
 #Checks to see if both defined, if both aren't defined it checks one, then the other, 
@@ -66,6 +64,7 @@ exposing the files to third parties.
 %local_options
 
 %install
+# delete this step later
 rm -rf "$RPM_BUILD_ROOT"
 mkdir -p $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}

@@ -36,8 +36,8 @@ RPM Build process:
 
 The RPM has a few options to take into consideration:
 
-	--define "strict_checks no".................turns strict checks off, the default has strict checking set to yes. This options only takes in: no, No, or NO. If you want strict checks on, don't define it. It's set on by default.
-	--define "alt_givedir /my/givedir/".........allows you to set your own givedir location. Default is set to /usr/givedir
+	--with checks............enables strict checks. The default has strict checking set to disabled.
+	--define "give_dir /my/givedir/".........allows you to set your own givedir location. Default is set to /usr/give
 
 	***the directory you provide as DIR must exist, be owned by root, and be mode 0755. If those conditions aren't met 'give' will complain and quit.
 
@@ -49,15 +49,15 @@ The RPM has a few options to take into consideration:
 
 	build with non-strict checks only:
 
-		from a tar:	rpmbuild -ta give-3.1-1.tgz --define "strict_checks no"
+		from a tar:	rpmbuild -ta give-3.1-1.tgz --with checks
 		
-		from a spec:	rpmbuild -ba path_to_spec_file/give.spec --define "strict_checks no"
+		from a spec:	rpmbuild -ba path_to_spec_file/give.spec --with checks
 
 	with both options:
 
-		from a tar:	rpmbuild -ta give-3.1-1.tgz --define "alt_givedir /desired/givedir" --define "strict_checks no"
+		from a tar:	rpmbuild -ta give-3.1-1.tgz --define "give_dir /desired/givedir" --with checks
 		
-		from a spec:	rpmbuild -ba path_to_spec_file/give.spec --define "alt_givedir /desired/givedir" --define "strict_checks no"
+		from a spec:	rpmbuild -ba path_to_spec_file/give.spec --define "give_dir /desired/givedir" --with checks
 
 ===============================================================================================================================================================================================================
 

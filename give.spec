@@ -9,9 +9,6 @@
 %define __os_install_post /usr/lib/rpm/brp-compress
 %define debug_package %{nil}
 
-# Default give dir is /usr/give, unless the user overrides it
-%{!?give_dir: %define give_dir /usr/give}
-
 Name: give
 Version: 3.1
 Release: 5
@@ -28,10 +25,12 @@ URL: https://github.com/hpc/%{name}
 
 %build
 %if %{with checks}
+    %{!?give_dir: %define give_dir /usr/give}
     %configure --enable-givedir=%{give_dir}
     %define local_options Built with strict checks
     make
 %else
+    %{!?give_dir: %define give_dir /usr/give}
     %configure --enable-non-strict-checks --enable-givedir=%{give_dir}
     %define local_options Built with non-strict checks (default)
     make

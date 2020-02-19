@@ -15,7 +15,7 @@ Release: 6%{?dist}
 Summary: lc file transfer utility
 License: LLNL Internal
 Group: System Environment/Base
-Source0: https://github.com/francinelapid/{name}/archive/v{version}.tar.gz
+Source0: https://github.com/francinelapid/{name}/archive/v%{version}.tar.gz
 URL: https://github.com/hpc/%{name}
 
 

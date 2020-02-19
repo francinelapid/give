@@ -11,11 +11,11 @@
 
 Name: give
 Version: 3.1
-Release: 5
+Release: 6%{?dist}
 Summary: lc file transfer utility
 License: LLNL Internal
 Group: System Environment/Base
-Source0: https://github.com/hpc/%{name}/archive/v%{version}-%{release}.tar.gz
+Source0: https://github.com/francinelapid/{name}/archive/v{version}.tar.gz
 URL: https://github.com/hpc/%{name}
 
 
@@ -78,8 +78,8 @@ rm -rf $RPM_BUILD_ROOT
  * Thu Nov 01 2012 Georgia Pedicini <gap@lanl.gov>
 - LANL version 3.1-2, tighten permissions
  * Tue Nov 06 2012 Georgia Pedicini <gap@lanl.gov>
-- Added defined text string to include in description, citing which (if any)
-options were used in the build.
+- Added defined text string to include in description, citing which (if any) options were used in the build.
  * Wed May 25 2016 Dominic Manno <dmanno@lanl.gov>
-- Converted to be python2 and python3 compatible, mostly print statement to
-function calls
+- Converted to be python2 and python3 compatible, mostly print statement to function calls
+ * Wed Feb 19 2020 Francine Lapid <lapid@lanl.gov>
+- Edited spec file to change defaults and arguments

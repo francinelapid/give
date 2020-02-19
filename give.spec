@@ -21,7 +21,7 @@ URL: https://github.com/hpc/%{name}
 
 ######################################################################
 %prep
-%setup -n %{name}-%{version}-%{release}
+%setup -n %{name}-%{version}
 
 %build
 %if %{with checks}

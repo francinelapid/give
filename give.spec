@@ -1,5 +1,5 @@
-# add --with checks option (default is enable non strict checks)
-%bcond_with checks
+# add --with strict_checks option (default is enable non strict checks)
+%bcond_with strict_checks
 
 # The default behavior of rpmbuild, depending on your OS, often is to strip
 # binaries after installation in order to reduce file size. The two macros
@@ -24,7 +24,7 @@ URL: https://github.com/hpc/%{name}
 %setup -n %{name}-%{version}
 
 %build
-%if %{with checks}
+%if %{with strict_checks}
     %{!?give_dir: %define give_dir /usr/give}
     %configure --enable-givedir=%{give_dir}
     %define local_options Built with strict checks

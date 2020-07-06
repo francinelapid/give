@@ -24,13 +24,16 @@ URL: https://github.com/hpc/%{name}
 %setup -n %{name}-%{version}
 
 %build
+# if give_dir is not defined, give it the value of /usr/give
+%if %{?give_dir:0}%{!?give_dir:1}
+    %define give_dir /usr/give
+%endif
+
 %if %{with strict_checks}
-    %{!?give_dir: %define give_dir /usr/give}
     %configure --enable-givedir=%{give_dir}
     %define local_options Built with strict checks
     make
 %else
-    %{!?give_dir: %define give_dir /usr/give}
     %configure --enable-non-strict-checks --enable-givedir=%{give_dir}
     %define local_options Built with non-strict checks (default)
     make

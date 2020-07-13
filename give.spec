@@ -1,5 +1,5 @@
-# add --with strict_checks option (default is enable non strict checks)
-%bcond_with strict_checks
+# add --without strict_checks option (default is enable strict checks)
+%bcond_without strict_checks
 
 # The default behavior of rpmbuild, depending on your OS, often is to strip
 # binaries after installation in order to reduce file size. The two macros
